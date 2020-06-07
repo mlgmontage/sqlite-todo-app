@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import UIkit from "uikit";
+import TodoList from "./todo-list";
 
 class Todos extends Component {
   constructor(props) {
@@ -29,20 +30,7 @@ class Todos extends Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.state.todos.map((todo) => {
-          return (
-            <div key={todo.id}>
-              <button value={todo.id} onClick={this.handleDelete}>
-                Delete
-              </button>
-              {todo.text}{" "}
-            </div>
-          );
-        })}
-      </div>
-    );
+    return <TodoList todos={this.state.todos} />;
   }
 }
 
