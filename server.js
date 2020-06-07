@@ -50,7 +50,6 @@ app.get("/todo/:id", (req, res) => {
 app.post("/todo", (req, res) => {
   const text = req.body.text;
   const completed = req.body.completed;
-  console.log(req.body);
 
   db.serialize(() => {
     db.run(
@@ -63,6 +62,19 @@ app.post("/todo", (req, res) => {
         res.redirect("/");
       }
     );
+  });
+});
+
+app.post("/todo/delete", (req, res) => {
+  const id = req.body.id;
+
+  db.serialize(() => {
+    db.run(`DELETE FROM todo WHERE id = ?`, [id], (err) => {
+      if (err) {
+        console.log(err);
+      }
+      res.redirect("/");
+    });
   });
 });
 
