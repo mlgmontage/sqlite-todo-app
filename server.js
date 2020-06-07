@@ -4,9 +4,12 @@ const port = process.env.PORT || 3000;
 const sqlite3 = require("sqlite3");
 const morgan = require("morgan");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 app.use(morgan("dev"));
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 let db = new sqlite3.Database(
   "./database/todos.db",
@@ -19,8 +22,8 @@ let db = new sqlite3.Database(
   }
 );
 
-app.get("/", async (req, res) => {
-  await db.serialize(() => {
+app.get("/", (req, res) => {
+  db.serialize(() => {
     db.all(`SELECT * FROM todo`, (err, rows) => {
       if (err) {
         console.error(err.message);
