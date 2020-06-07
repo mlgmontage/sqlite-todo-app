@@ -26,7 +26,7 @@ let db = new sqlite3.Database(
 
 app.get("/todos", (req, res) => {
   db.serialize(() => {
-    db.all(`SELECT * FROM todo`, (err, rows) => {
+    db.all(`SELECT * FROM todo ORDER BY id DESC`, (err, rows) => {
       if (err) {
         console.error(err.message);
       }
