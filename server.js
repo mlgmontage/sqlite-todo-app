@@ -4,10 +4,13 @@ const port = process.env.PORT || 3000;
 const sqlite3 = require("sqlite3");
 const morgan = require("morgan");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 app.use(morgan("dev"));
 app.use(cors());
 app.use(express.urlencoded({ extended: false })); // can replace body-parser
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.static("./public/build"));
 
 let db = new sqlite3.Database(

@@ -7,14 +7,41 @@ class Todos extends Component {
     super(props);
     this.state = {
       todos: [],
+      text: "",
+      completed: "",
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.fetchData = this.fetchData.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.addTodo = this.addTodo.bind(this);
   }
 
   handleDelete(e) {
     const ind = e.target.value;
     UIkit.notification(`Delete handled ${ind}`);
+  }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+    console.log(this.state);
+  }
+
+  addTodo(e) {
+    e.preventDefault();
+    fetch(`http://localhost:3000/todo`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        text: this.state.text,
+        completed: this.state.completed,
+      }),
+    });
+    this.fetchData();
   }
 
   fetchData() {
@@ -32,7 +59,7 @@ class Todos extends Component {
   render() {
     return (
       <div>
-        <form>
+        <form onSubmit={this.addTodo}>
           <fieldset className="uk-fieldset">
             <legend className="uk=legend">
               <h4>What to do...</h4>
@@ -43,6 +70,7 @@ class Todos extends Component {
                 className="uk-input"
                 name="text"
                 placeholder="What todo..."
+                onChange={this.handleChange}
               ></input>
             </div>
             <div>
@@ -52,6 +80,8 @@ class Todos extends Component {
                   className="uk-radio"
                   name="completed"
                   value="planned"
+                  defaultChecked
+                  onChange={this.handleChange}
                 ></input>
                 Planned
               </label>
@@ -62,6 +92,7 @@ class Todos extends Component {
                   className="uk-radio"
                   name="completed"
                   value="completed"
+                  onChange={this.handleChange}
                 ></input>
                 Completed
               </label>
