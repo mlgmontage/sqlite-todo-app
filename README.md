@@ -6,6 +6,5 @@
 
 - Express
 - CORS
-- body-parser
 - sqlite3
 - morgan
