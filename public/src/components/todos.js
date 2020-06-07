@@ -8,12 +8,13 @@ class Todos extends Component {
     this.state = {
       todos: [],
       text: "",
-      completed: "",
+      completed: "planned",
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.fetchData = this.fetchData.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addTodo = this.addTodo.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this);
   }
 
   handleDelete(e) {
@@ -21,11 +22,12 @@ class Todos extends Component {
     UIkit.notification(`Delete handled ${ind}`);
   }
 
+  deleteTodo(e) {}
+
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value,
     });
-    console.log(this.state);
   }
 
   addTodo(e) {
@@ -40,8 +42,13 @@ class Todos extends Component {
         text: this.state.text,
         completed: this.state.completed,
       }),
+    }).then(() => {
+      UIkit.notification("Your todo has been added to list");
+      this.fetchData();
+      this.setState({
+        text: "",
+      });
     });
-    this.fetchData();
   }
 
   fetchData() {
@@ -81,7 +88,7 @@ class Todos extends Component {
                   name="completed"
                   value="planned"
                   defaultChecked
-                  onChange={this.handleChange}
+                  onClick={this.handleChange}
                 ></input>
                 Planned
               </label>
@@ -92,7 +99,7 @@ class Todos extends Component {
                   className="uk-radio"
                   name="completed"
                   value="completed"
-                  onChange={this.handleChange}
+                  onClick={this.handleChange}
                 ></input>
                 Completed
               </label>
