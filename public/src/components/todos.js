@@ -14,15 +14,24 @@ class Todos extends Component {
     this.fetchData = this.fetchData.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addTodo = this.addTodo.bind(this);
-    this.deleteTodo = this.deleteTodo.bind(this);
   }
 
   handleDelete(e) {
     const ind = e.target.value;
-    UIkit.notification(`Delete handled ${ind}`);
+    fetch(`http://localhost:3000/todo/delete`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: ind,
+      }),
+    }).then(() => {
+      UIkit.notification(`Delete handled ${ind}`);
+      this.fetchData();
+    });
   }
-
-  deleteTodo(e) {}
 
   handleChange(e) {
     this.setState({
