@@ -10,7 +10,11 @@ class TodoList extends Component {
             : this.props.todos.map((todo) => {
                 return (
                   <div key={todo.id}>
-                    <button value={todo.id} onClick={this.handleDelete}>
+                    <button
+                      value={todo.id}
+                      className="uk-button uk-button-default"
+                      onClick={this.props.handleDelete}
+                    >
                       Delete
                     </button>
                     {todo.text}{" "}
