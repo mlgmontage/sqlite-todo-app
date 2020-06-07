@@ -33,6 +33,18 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/todo/:id", (req, res) => {
+  const id = req.params.id;
+  db.serialize(() => {
+    db.all(`SELECT * FROM todo WHERE id = ?`, [id], (err, row) => {
+      if (err) {
+        console.error(err.message);
+      }
+      res.status(200).send(row);
+    });
+  });
+});
+
 app.listen(port, () => {
   console.log(`listenning on port ${port}`);
 });
