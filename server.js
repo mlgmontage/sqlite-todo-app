@@ -8,7 +8,7 @@ const cors = require("cors");
 app.use(morgan("dev"));
 app.use(cors());
 app.use(express.urlencoded({ extended: false })); // can replace body-parser
-app.use(express.static("./public"));
+app.use(express.static("./public/build"));
 
 let db = new sqlite3.Database(
   "./database/todos.db",
