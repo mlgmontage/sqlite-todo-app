@@ -8,8 +8,10 @@ const bodyParser = require("body-parser");
 
 app.use(morgan("dev"));
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false })); // can replace body-parser
+app.use(express.static("./public"));
 
 let db = new sqlite3.Database(
   "./database/todos.db",
@@ -22,7 +24,7 @@ let db = new sqlite3.Database(
   }
 );
 
-app.get("/", (req, res) => {
+app.get("/todos", (req, res) => {
   db.serialize(() => {
     db.all(`SELECT * FROM todo`, (err, rows) => {
       if (err) {
@@ -42,6 +44,25 @@ app.get("/todo/:id", (req, res) => {
       }
       res.status(200).send(row);
     });
+  });
+});
+
+app.post("/todo", (req, res) => {
+  const text = req.body.text;
+  const completed = req.body.completed;
+  console.log(req.body);
+
+  db.serialize(() => {
+    db.run(
+      `INSERT INTO todo(text, completed) VALUES (? , ?)`,
+      [text, completed],
+      (err) => {
+        if (err) {
+          console.log(err);
+        }
+        res.redirect("/");
+      }
+    );
   });
 });
 

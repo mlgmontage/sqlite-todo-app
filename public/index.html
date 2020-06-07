@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo app</title>
+  </head>
+  <body>
+    <h1>Todo app</h1>
+    <form action="/todo" method="post">
+      <label for="text">Text: </label>
+      <input type="text" name="text" id="text" /><br />
+      <label for="completed">completed: </label>
+      <input type="checkbox" checked name="completed" id="completed" /> <br />
+      <button type="submit">+ADD</button>
+    </form>
+    <div>
+      <ul id="container"></ul>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
