@@ -14,6 +14,18 @@ class Todos extends Component {
     this.fetchData = this.fetchData.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addTodo = this.addTodo.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleMore = this.handleMore.bind(this);
+  }
+
+  handleEdit(e) {
+    const ind = e.target.value;
+    UIkit.notification(`<div class="uk-alert-warning">${ind}</div>`);
+  }
+
+  handleMore(e) {
+    const ind = e.target.value;
+    UIkit.notification(`<div class="uk-alert-success">${ind}</div>`);
   }
 
   handleDelete(e) {
@@ -28,7 +40,9 @@ class Todos extends Component {
         id: ind,
       }),
     }).then(() => {
-      UIkit.notification(`Delete handled ${ind}`);
+      UIkit.notification(
+        `<div class="uk-alert-warning">Todo with number ${ind} has been deleted</div>`
+      );
       this.fetchData();
     });
   }
@@ -52,7 +66,9 @@ class Todos extends Component {
         completed: this.state.completed,
       }),
     }).then(() => {
-      UIkit.notification("Your todo has been added to list");
+      UIkit.notification(
+        `<div class="uk-alert-success">Your todo has been added to list</div>`
+      );
       this.fetchData();
       this.setState({
         text: "",
@@ -89,7 +105,7 @@ class Todos extends Component {
                 onChange={this.handleChange}
               ></input>
             </div>
-            <div>
+            <div className="uk-margin ">
               <label>
                 <input
                   type="radio"
@@ -113,13 +129,18 @@ class Todos extends Component {
                 Completed
               </label>
             </div>
-            <button type="submit" className="uk-button uk-button-default">
+            <button type="submit" className="uk-button uk-button-primary">
               SUBMIT
             </button>
           </fieldset>
         </form>
         <hr></hr>
-        <TodoList todos={this.state.todos} handleDelete={this.handleDelete} />
+        <TodoList
+          todos={this.state.todos}
+          handleEdit={this.handleEdit}
+          handleDelete={this.handleDelete}
+          handleMore={this.handleMore}
+        />
       </div>
     );
   }

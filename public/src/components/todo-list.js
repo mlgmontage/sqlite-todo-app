@@ -28,7 +28,23 @@ class TodoList extends Component {
                       <td>
                         <button
                           value={todo.id}
-                          className="uk-button uk-button-default"
+                          className="uk-button uk-button-secondary"
+                          onClick={this.props.handleMore}
+                        >
+                          MORE
+                        </button>
+                        <span>|</span>
+                        <button
+                          value={todo.id}
+                          className="uk-button uk-button-primary"
+                          onClick={this.props.handleEdit}
+                        >
+                          EDIT
+                        </button>
+                        <span>|</span>
+                        <button
+                          value={todo.id}
+                          className="uk-button uk-button-danger"
                           onClick={this.props.handleDelete}
                         >
                           DELETE
