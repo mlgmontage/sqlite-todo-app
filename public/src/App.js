@@ -1,9 +1,12 @@
 import React from "react";
+import Hello from "./components/hello";
+import Todos from "./components/todos";
 
 function App() {
   return (
     <div className="uk-container">
-      <h1>Hello, world</h1>
+      <Hello />
+      <Todos />
     </div>
   );
 }
