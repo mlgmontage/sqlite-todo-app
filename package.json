@@ -5,6 +5,10 @@
   "repository": "https://github.com/mlgmontage/sqlite-todo-app",
   "author": "mlgmontage <kettleofrassel1@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
   "dependencies": {
     "@prisma/client": "^2.11.0",
     "cors": "^2.8.5",
