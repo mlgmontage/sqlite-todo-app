@@ -19,6 +19,22 @@ router.post("/create", async (req, res) => {
   res.json(todo);
 });
 
+router.put("/complete/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  const isCompleted = req.body.isCompleted;
+
+  const completed = await prisma.todos.update({
+    where: {
+      TodoId: Number(id),
+    },
+    data: {
+      isCompleted: isCompleted,
+    },
+  });
+
+  res.json(completed);
+});
+
 router.delete("/:id", async (req, res) => {
   const id = Number(req.params.id);
 
