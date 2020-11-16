@@ -8,4 +8,13 @@ router.get("/", async (req, res) => {
   res.json(todos);
 });
 
+router.post("/create", async (req, res) => {
+  const body = req.body;
+
+  const todos = await prisma.todos.create({
+    data: body,
+  });
+  res.json(todos);
+});
+
 module.exports = router;
