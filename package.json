@@ -1,0 +1,8 @@
+{
+  "name": "sqlite-todo-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mlgmontage/sqlite-todo-app",
+  "author": "mlgmontage <kettleofrassel1@gmail.com>",
+  "license": "MIT"
+}
