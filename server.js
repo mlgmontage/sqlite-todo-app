@@ -9,11 +9,7 @@ const app = express();
 app.use(volleyball);
 app.use(cors());
 
-app.get("/hello", (req, res) => {
-  res.json({
-    message: "world",
-  });
-});
+app.use("/api/todos", require("./api/routes/todos"));
 
 app.listen(port, () =>
   console.log(`App listening on http://localhost:${port}`)
