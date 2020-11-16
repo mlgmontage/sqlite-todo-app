@@ -11,10 +11,22 @@ router.get("/", async (req, res) => {
 router.post("/create", async (req, res) => {
   const body = req.body;
 
-  const todos = await prisma.todos.create({
+  const todo = await prisma.todos.create({
     data: body,
   });
-  res.json(todos);
+  res.json(todo);
+});
+
+router.delete("/:id", async (req, res) => {
+  const id = Number(req.params.id);
+
+  const deleted = await prisma.todos.delete({
+    where: {
+      TodoId: id,
+    },
+  });
+
+  res.json(deleted);
 });
 
 module.exports = router;
