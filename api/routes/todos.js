@@ -4,7 +4,9 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 router.get("/", async (req, res) => {
-  const todos = await prisma.todos.findMany();
+  const todos = await prisma.todos.findMany({
+    orderBy: [{ TodoId: "desc" }],
+  });
   res.json(todos);
 });
 
